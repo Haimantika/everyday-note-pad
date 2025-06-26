@@ -62,8 +62,28 @@ This project is built with:
 - Tailwind CSS
 
 ## How can I deploy this project?
+Add the following prompt to Lovable, to help it make your app production-ready and ready to be deployed on DigitalOcean's App Platform:
+```
+I would like to deploy this app to production in DigitalOcean App Platform. Please help me review and make the necessary adjustments.
 
-Simply open [Lovable](https://lovable.dev/projects/85a77c2e-cf4d-47be-b88b-94731f098051) and click on Share -> Publish.
+A few notes about DigitalOcean App Platform:
+**Security**: Don't hardcode credentials in the source code. Instead, use environment variables and remind me to configure them in App Platform's environment variables section before deployment.
+**Vite Configuration**: In vite.config.ts, make sure to exclude any allowedHosts restrictions so the app can accept connections from App Platform's hosts.
+**Health Check**: Add a /health endpoint that returns a simple JSON response with status and timestamp for App Platform monitoring.
+**Single Component**: Structure as a single web service (don't split into multiple components unless absolutely necessary).
+**GitHub Ready**: Ensure the code is ready to be committed to GitHub main branch for App Platform's auto-deploy feature.
+**No App Spec**: Do not create an app spec file. App Platform doesn't need one when using the console for deployment.
+**No Dockerfile**: Do not create a Dockerfile. App Platform will use the Node.js buildpack to automatically build the container image.
+
+After generating the code, please remind me to:
+* Move any credentials from source code to App Platform environment variables
+* Connect the GitHub repository to App Platform
+* Configure the environment variables in App Platform before deployment
+* Review the component type auto-detected by App Platform during deployment (change from Web Service to Static Site if building a frontend-only app)
+* Add custom domain in App Platform Settings > Domains if needed (can be done during or after app creation)
+
+Please add a section to README.md with the instructions to deploy to DigitalOcean App Platform specific to this project.
+```
 
 ## Deploying to DigitalOcean App Platform
 
